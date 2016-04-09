@@ -2,74 +2,88 @@
 <html>
 <head lang="zh-cn">
     <meta charset="UTF-8">
-    <title>Maple Loading</title>
+    <meta name="viewport" content="width=640, target-densityDpi=device-dpi, user-scalable=no">
+    <title>Interactive Particle Demo</title>
     <link rel="stylesheet" href="style.css"/>
     <style>
         .loading_text{
-            margin-top : 240px;
-            padding : 12px;
-            text-align : center;
-            font-size : 24px;
-            position : relative;
-            top: 43px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+            font-family : "microsoft yahei light",sans-serif;
+            text-align: center;
+            font-size: 48px;
             z-index: 100;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 1);
-            opacity : 0.5;
+            text-shadow: 0 0 10px rgba(64,160,255,0.75);
+        }
+        strong{
+            font-family : "microsoft yahei",sans-serif;
         }
         .loading_box{
-            position : relative;
-            margin : 0 auto;
-            width: 640px;
-            height: 32px;
-            border-radius: 32px;
-            box-shadow: 0 0 16px rgba(0, 216, 255, 0.5);
+            position : absolute;
+            top : 0;
+            width : 100%;
+            height : 100%;
         }
     </style>
 </head>
 <body>
-<div class="main_body">
-    <div class="loading_text">LOADING</div>
-    <div class="loading_box" id="loading_box">
-        <canvas id="loading"></canvas>
+    <div class="main_body">
+        <div class="loading_text">DESIGNED BY <strong>MAPLERECALL</strong></div>
+        <div class="loading_box" id="loading_box">
+            <canvas id="loading"></canvas>
+        </div>
     </div>
-</div>
-<script src="maple_loading.js"></script>
-<script>
+    <script src="dat.gui.min.js"></script>
+    <script src="../particles.js"></script>
+    <script>
+    (function() {
+        var ml = mapleLoading(document.getElementById("loading"));
+        var gui = new dat.GUI();
+        gui.add(ml.config, 'num',0,5000).step(1);
+        var sizeFolder=gui.addFolder("Size")
+        sizeFolder.add(ml.config.size,"minSize",0,500)
+        sizeFolder.add(ml.config.size,"maxSize",0,500)
 
-    var config = {
-        num       : 250,//数量
-        size      : {
-            minSize: 5,//最小尺寸
-            maxSize: 20//最大尺寸
-        },
-        zone      : {
-            x: [0.1, 0.1],
-            y: [0, 1]
-        },
-        speed     : {
-            x : [-4, -4],//x轴速度区间
-            y : [-0.075, 0.075],//y轴速度区间
-            ax: [-0.04, -0.04],//x轴加速度区间
-            ay: [-0.004, 0.004]//y轴加速度区间
-        },
-        time      : {
-            fadeIn : 100,//生成时间
-            fadeOut: 3000//消逝时间
-        },
-        active    : 0,//鼠标随动程度
-        blur      : true//模糊效果……存在性能问题但不舍得抛弃_(:3」∠)_
-    };
+        var zoneFolder=gui.addFolder("Zone");
+        zoneFolder.add(ml.config.zone.x,0,-1,2).name("startX").step(0.001);        
+        zoneFolder.add(ml.config.zone.x,1,-1,2).name("endX").step(0.001);        
+        zoneFolder.add(ml.config.zone.y,0,-1,2).name("startY").step(0.001);        
+        zoneFolder.add(ml.config.zone.y,1,-1,2).name("endY").step(0.001);        
 
+        var speedFolder=gui.addFolder("Speed");
+        speedFolder.add(ml.config.speed.x,0,-10,10).name("minSpeedX").step(0.01);
+        speedFolder.add(ml.config.speed.x,1,-10,10).name("maxSpeedX").step(0.01);
+        speedFolder.add(ml.config.speed.y,0,-10,10).name("minSpeedY").step(0.01);
+        speedFolder.add(ml.config.speed.y,1,-10,10).name("maxSpeedY").step(0.01);
+        speedFolder.add(ml.config.speed.ax,0,-5,5).name("minAccX").step(0.01);
+        speedFolder.add(ml.config.speed.ax,1,-5,5).name("maxAccX").step(0.01);
+        speedFolder.add(ml.config.speed.ay,0,-5,5).name("minAccY").step(0.01);
+        speedFolder.add(ml.config.speed.ay,1,-5,5).name("maxAccY").step(0.01);
 
-    var ml = mapleLoading(document.getElementById("loading"), config);
+        var timeFolder=gui.addFolder("Time")
+        timeFolder.add(ml.config.time,"fadeIn",16,10000).step(1);
+        timeFolder.add(ml.config.time,"fadeOut",16,10000).step(1);
 
-    var loadingGo=function(i){
-        if(i<=1.1){
-            ml.config.zone.x=[i*0.75,i];
-            setTimeout(function(){loadingGo(i+0.005)},25);
-        }
-    }
-    loadingGo(0);
-</script>
+        var atmosphereFolder=gui.addFolder("Atmosphere");
+        var afC1=atmosphereFolder.addFolder("Color1");
+        var afC2=atmosphereFolder.addFolder("Color2")
+        afC1.addColor(ml.config.atmosphere[0],"start");
+        afC1.addColor(ml.config.atmosphere[0],"end");
+        afC2.addColor(ml.config.atmosphere[1],"start");
+        afC2.addColor(ml.config.atmosphere[1],"end");
+
+        gui.add(ml.config,"mode",["lighter","source-over","multiply","screen","overlay","darken","hard-light","soft-light"])
+        gui.addColor(ml.config,"background");
+        gui.add(ml.config,"atmosphereBG");
+        gui.add(ml.config,"follow");
+        gui.add(ml.config,"active");
+        gui.add(ml.config,"perspective");
+        gui.add(ml.config,"sizeToZLevel");
+        gui.add(ml.config, 'blur');
+    })()
+
+    </script>
 </body>
 </html>

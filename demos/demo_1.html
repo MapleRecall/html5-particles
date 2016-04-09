@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>Maple Loading</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        .loading_text{
+            margin-top : 240px;
+            padding : 12px;
+            text-align : center;
+            font-size : 24px;
+            position : relative;
+            top: 43px;
+            z-index: 100;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            opacity : 0.5;
+        }
+        .loading_box{
+            position : relative;
+            margin : 0 auto;
+            width: 640px;
+            height: 32px;
+            border-radius: 32px;
+            box-shadow: 0 0 16px rgba(0, 216, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+<div class="main_body">
+    <div class="loading_text">LOADING</div>
+    <div class="loading_box" id="loading_box">
+        <canvas id="loading"></canvas>
+    </div>
+</div>
+<script src="../particles.js"></script>
+<script>
+
+    var config = {
+        num       : 250,//数量
+        size      : {
+            minSize: 5,//最小尺寸
+            maxSize: 20//最大尺寸
+        },
+        zone      : {
+            x: [0.1, 0.1],
+            y: [0, 1]
+        },
+        speed     : {
+            x : [-4, -4],//x轴速度区间
+            y : [-0.075, 0.075],//y轴速度区间
+            ax: [-0.04, -0.04],//x轴加速度区间
+            ay: [-0.004, 0.004]//y轴加速度区间
+        },
+        time      : {
+            fadeIn : 100,//生成时间
+            fadeOut: 3000//消逝时间
+        },
+        active    : 0,//鼠标随动程度
+        blur      : true//模糊效果……存在性能问题但不舍得抛弃_(:3」∠)_
+    };
+
+
+    var ml = mapleLoading(document.getElementById("loading"), config);
+
+    var loadingGo=function(i){
+        if(i<=1.1){
+            ml.config.zone.x=[i*0.75,i];
+            setTimeout(function(){loadingGo(i+0.005)},25);
+        }
+    }
+    loadingGo(0);
+</script>
+</body>
+</html>
