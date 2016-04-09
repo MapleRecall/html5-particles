@@ -1,7 +1,5 @@
 # html5-particles
 A particle generator on HTML 5 Canvas 
-<<<<<<< HEAD
-=======
 
 一个性可能能不是很好的js粒子生成器，最初是为了完成某内部技术交流会做一个创意loading的作业而写的，结果越写越偏写出了这个东西，主要用途是在指定canvas里按一定的参数生成粒子。
 
@@ -48,4 +46,4 @@ var config={
 * <del>天依</del>未来蓝：[SEE THE FUTURE](http://maplerecall.github.io/html5-particles/demos/demo_4.html)
 * 鼠标/触摸随动：[MapleRecall](http://maplerecall.github.io/html5-particles/demos/demo_5.html)
 * GalGame：[さようなら](http://maplerecall.github.io/html5-particles/demos/demo_7.html)
->>>>>>> gh-pages
+
