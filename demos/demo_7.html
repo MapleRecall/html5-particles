@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>Maple Loading</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        .loading_text{
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            padding: 20px 20px 90px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.75);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border-top: 3px solid rgb(206, 187, 168);
+            width: 60%;
+            transform: translate3d(-50%,0%,0);
+            font-size: 32px;
+            z-index: 100;
+            color: #fff;
+            background: rgba(76, 46, 28, 0.6);
+            font-family: Century Gothic,serif;
+        }
+        .loading_box{
+            position : absolute;
+            top : 0;
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="main_body">
+    <div class="loading_text">さようなら</div>
+    <div class="loading_box" id="loading_box">
+        <canvas id="loading"></canvas>
+    </div>
+</div>
+<script src="maple_loading.js"></script>
+<script>
+
+    var config = {
+        num       : 200,//数量
+        size      : {
+            minSize: 10,//最小尺寸
+            maxSize: 300//最大尺寸
+        },
+        zone      : {
+            x: [0, 1],
+            y: [0, 1]
+        },
+        speed     : {
+            x : [0, 0],//x轴速度区间
+            y : [0, 0],//y轴速度区间
+            ax: [-0.0, 0.0],//x轴加速度区间
+            ay: [-0.0, 0.0]//y轴加速度区间
+        },
+        time      : {
+            fadeIn : 1000,//生成时间
+            fadeOut: 5000//消逝时间
+        },
+        atmosphere: [//色彩氛围，在指定颜色区间中随机生成颜色效果真是棒极了！
+            {
+                start:{
+                    r:32,
+                    g:192,
+                    b:32,
+                    a:0
+                },
+                end:{
+                    r:128,
+                    g:255,
+                    b:128,
+                    a:0
+                }
+            },
+            {
+                start:{
+                    r:192,
+                    g:160,
+                    b:32,
+                    a:0.3
+                },
+                end:{
+                    r:255,
+                    g:192,
+                    b:128,
+                    a:0.4
+                }
+            },
+            {
+                start:{
+                    r:192,
+                    g:160,
+                    b:32,
+                    a:0.3
+                },
+                end:{
+                    r:220,
+                    g:192,
+                    b:128,
+                    a:0.4
+                }
+            }
+        ],
+        background:"rgba(8,6,16,0.85)",
+        //mode:"source-over",
+        follow    : false,
+        active    : 0,//鼠标随动程度
+        blur      : true//模糊效果……存在性能问题但不舍得抛弃_(:3」∠)_
+    };
+
+
+    var ml = mapleLoading(document.getElementById("loading"), config);
+</script>
+</body>
+</html>
