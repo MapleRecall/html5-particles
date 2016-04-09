@@ -2,7 +2,8 @@
  * Created by MapleRecall on 2015/07/09.
  */
 
- var mapleLoading = function(canvas, config) {
+(function(){
+ window.mapleParticles = function(canvas, config) {
     //默认参数
     var _config = {
         num: 200, //数量
@@ -299,3 +300,5 @@
             };
         }
     };
+})()
+

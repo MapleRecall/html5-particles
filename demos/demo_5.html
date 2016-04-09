@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640, target-densityDpi=device-dpi, user-scalable=no">
+    <title>Interactive Particle Demo</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        .loading_text{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+            font-family : "microsoft yahei light",sans-serif;
+            text-align: center;
+            font-size: 48px;
+            z-index: 100;
+            text-shadow: 0 0 10px rgba(64,160,255,0.75);
+        }
+        strong{
+            font-family : "microsoft yahei",sans-serif;
+        }
+        .loading_box{
+            position : absolute;
+            top : 0;
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="main_body">
+    <div class="loading_text">DESIGNED BY <strong>MAPLERECALL</strong></div>
+    <div class="loading_box" id="loading_box">
+        <canvas id="loading"></canvas>
+    </div>
+</div>
+<script src="../particles.js"></script>
+<script>
+
+    var config = {
+        num       : 250,//数量
+        size      : {
+            minSize: 1,//最小尺寸
+            maxSize: 20//最大尺寸
+        },
+        zone      : {
+            x: [0, 1],
+            y: [1, 1]
+        },
+        speed     : {
+            x : [-1, 1],//x轴速度区间
+            y : [-1, 1],//y轴速度区间
+            ax: [0, 0],//x轴加速度区间
+            ay: [-0.002, 0.002]//y轴加速度区间
+        },
+        time      : {
+            fadeIn : 100,//生成时间
+            fadeOut: 4000//消逝时间
+        },
+        background:"rgba(0,0,0,0.91)",
+        follow    : true,
+        active    : 0,//鼠标随动程度
+        blur      : true//模糊效果……存在性能问题但不舍得抛弃_(:3」∠)_
+    };
+
+
+    var ml = mapleParticles(document.getElementById("loading"), config);
+</script>
+</body>
+</html>

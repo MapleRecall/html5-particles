@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=320, target-densityDpi=device-dpi, user-scalable=yes">
+    <title>Maple Particles</title>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        .loading_text{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0);
+            font-family : "microsoft yahei light";
+            text-align: center;
+            font-size: 48px;
+            z-index: 100;
+            text-shadow: 0 0 10px rgba(64,160,255,0.75);
+        }
+        strong{
+            font-family : "microsoft yahei";
+        }
+        .loading_box{
+            position : absolute;
+            top : 0;
+            width : 100%;
+            height : 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="main_body">
+    <div class="loading_text">SEE THE <strong>FUTURE</strong></div>
+    <div class="loading_box" id="loading_box">
+        <canvas id="loading"></canvas>
+    </div>
+</div>
+<script src="../particles.js"></script>
+<script>
+    var config = {
+        num       : 250,//数量
+        size      : {
+            minSize: 1,//最小尺寸
+            maxSize: 20//最大尺寸
+        },
+        zone      : {
+            x: [0, 1],
+            y: [1, 1]
+        },
+        speed     : {
+            x : [0, 0],//x轴速度区间
+            y : [-4, -1],//y轴速度区间
+            ax: [0, 0],//x轴加速度区间
+            ay: [-0.01, -0.04]//y轴加速度区间
+        },
+        time      : {
+            fadeIn : 100,//生成时间
+            fadeOut: 4000//消逝时间
+        },
+        atmosphere: [//色彩氛围，在指定颜色区间中随机生成颜色效果真是棒极了！
+            {
+                start:{
+                    r:0,
+                    g:160,
+                    b:191,
+                    a:0.4
+                },
+                end:{
+                    r:64,
+                    g:224,
+                    b:255,
+                    a:0.9
+                }
+            },
+            {
+                start:{
+                    r:0,
+                    g:96,
+                    b:191,
+                    a:0.4
+                },
+                end:{
+                    r:64,
+                    g:160,
+                    b:255,
+                    a:0.9
+                }
+            }
+        ],
+        background:"rgba(0,0,0,0.9)",
+        follow    : false,
+        active    : 100,//鼠标随动程度
+        blur      : true//模糊效果……存在性能问题但不舍得抛弃_(:3」∠)_
+    };
+
+
+    var ml = mapleParticles(document.getElementById("loading"), config);
+</script>
+</body>
+</html>
