@@ -3,7 +3,7 @@
 <head lang="zh-cn">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=640, target-densityDpi=device-dpi, user-scalable=no">
-    <title>Particle Demo</title>
+    <title>Maple Particles</title>
     <link rel="stylesheet" href="style.css"/>
     <style>
         .loading_text{
@@ -39,7 +39,7 @@
     <script src="../particles.js"></script>
     <script>
     (function() {
-        var ml = mapleParticles(document.getElementById("loading"));
+        var ml = mapleLoading(document.getElementById("loading"));
         var gui = new dat.GUI();
         gui.add(ml.config, 'num',0,5000).step(1);
         var sizeFolder=gui.addFolder("Size")
